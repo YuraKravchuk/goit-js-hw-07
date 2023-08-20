@@ -9,10 +9,9 @@ const renderList = (arr, container) => {
         `<li class="gallery_item">
         <a class="gallery_link" href="${item.original}" onclick="return false;">
             <img
-            class="gallery_image"
-            src="${item.preview}" 
-            data-source="${item.original}" 
-            alt="${item.description}"/>
+              class="gallery_image"
+              src="${item.preview}" 
+              alt="${item.description}"/>
         </a>
     </li>`
     )
@@ -20,5 +19,11 @@ const renderList = (arr, container) => {
   container.insertAdjacentHTML("beforeend", markup);
 };
 
-// console.log(galleryItems);
+console.log(galleryItems);
 renderList(galleryItems, gallery);
+gallery.addEventListener("click", () => {
+  const lightbox = new SimpleLightbox(".gallery a", {
+    captionsData: "alt",
+    captionDelay: 250,
+  });
+});

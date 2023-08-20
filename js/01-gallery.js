@@ -27,7 +27,13 @@ const handListClick = (e) => {
     `<div class="modal"><img src="${e.target.dataset.source}"/></div>`
   );
   modal.show();
+  gallery.addEventListener("keydown", (e) => {
+    if (e.code === "Escape") {
+      modal.close();
+    }
+  });
 };
 renderList(galleryItems, gallery);
 gallery.addEventListener("click", handListClick);
+
 // console.log(galleryItems);
