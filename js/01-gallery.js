@@ -6,10 +6,10 @@ const renderList = (arr, container) => {
   const markup = arr
     .map(
       (item) =>
-        `<li class="gallery_item">
-        <a class="gallery_link" href="${item.original}" onclick="return false;">
+        `<li class="gallery__item">
+          <a class="gallery__link" href="${item.original}" onclick = "return false;">
             <img
-            class="gallery_image"
+            class="gallery__image"
             src="${item.preview}" 
             data-source="${item.original}" 
             alt="${item.description}"/>
@@ -23,17 +23,24 @@ const handListClick = (e) => {
   if (e.target.nodeName !== "IMG") {
     return;
   }
-  const modal = basicLightbox.create(
-    `<div class="modal"><img src="${e.target.dataset.source}"/></div>`
-  );
-  modal.show();
-  gallery.addEventListener("keydown", (e) => {
-    if (e.code === "Escape") {
-      modal.close();
+  const lightBox = basicLightbox.create(
+    `<div class="modal"><img src="${e.target.dataset.source}"/></div>`,
+    {
+      onShow: (lightBox) => {
+        document.addEventListener("keydown", onEscClose);
+      },
+      onClose: (lightBox) => {
+        document.removeEventListener("keydown", onEscClose);
+      },
     }
-  });
+  );
+  lightBox.show();
+  function onEscClose(e) {
+    if (e.code === "Escape") {
+      lightBox.close();
+    }
+  }
 };
+
 renderList(galleryItems, gallery);
 gallery.addEventListener("click", handListClick);
-
-// console.log(galleryItems);

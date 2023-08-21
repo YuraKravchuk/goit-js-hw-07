@@ -6,10 +6,10 @@ const renderList = (arr, container) => {
   const markup = arr
     .map(
       (item) =>
-        `<li class="gallery_item">
-        <a class="gallery_link" href="${item.original}" onclick="return false;">
+        `<li class="gallery__item">
+        <a class="gallery__link" href="${item.original}" onclick="return false;">
             <img
-              class="gallery_image"
+              class="gallery__image"
               src="${item.preview}" 
               alt="${item.description}"/>
         </a>
@@ -21,9 +21,7 @@ const renderList = (arr, container) => {
 
 console.log(galleryItems);
 renderList(galleryItems, gallery);
-gallery.addEventListener("click", () => {
-  const lightbox = new SimpleLightbox(".gallery a", {
-    captionsData: "alt",
-    captionDelay: 250,
-  });
+const lightbox = new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+  captionDelay: 250,
 });
